@@ -1,12 +1,12 @@
 package config
 
 import (
-  "os"
+	"os"
 )
 
 var defaultConfig = map[string]string{
-	"debug": "false",
-	"host": "http://localhost:8080",
+	"debug":      "false",
+	"host":       "http://localhost:8080",
 	"redis_addr": "127.0.0.1:6379",
 	"redis_auth": "",
 }

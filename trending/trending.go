@@ -14,22 +14,23 @@ import (
 
 var attr string = config.Get("redis_addr")
 var auth string = config.Get("redis_auth")
+var debug string = config.Get("debug")
 
-var Storage = storage.NewStorage(attr, auth)
+var Storage = storage.NewStorage(attr, auth, debug)
 
 func init() {
 	since := []string{"daily", "weekly", "monthly"}
 
-	// Init redis storage.
+	// Init storage.
 	for _, item := range since {
 		if exists, err := Storage.HExists("repositories", item); err != nil {
-			log.WithError(err).Fatal("init redis")
+			log.WithError(err).Fatal("init storage")
 		} else if !exists {
 			log.WithFields(log.Fields{
 				"key":   "repositories",
 				"field": item,
 				"value": "",
-			}).Info("init redis")
+			}).Info("init storage")
 
 			Storage.HSet("repositories", item, "")
 		}
@@ -89,8 +90,15 @@ func Repos(since, language string) ([]api.Repository, error) {
 	if stringify, err := json.Marshal(result); err != nil {
 		log.WithError(err).Error("stringify repositories")
 	} else {
-		log.Info("caching repositories")
-		Storage.HSet(key, since, string(stringify))
+		status, err := Storage.HSet(key, since, string(stringify))
+
+		if err != nil {
+			log.WithError(err).Error("caching repositories")
+		} else if !status {
+			log.Warn("caching repositories")
+		} else {
+			log.Info("caching repositories")
+		}
 	}
 
 	return result, nil

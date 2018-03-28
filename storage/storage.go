@@ -12,11 +12,21 @@ type Storage interface {
 }
 
 // NewStorage returns a new storage.
-func NewStorage(addr, auth string) Storage {
-	s, err := NewRedisStorage(addr, auth)
+func NewStorage(addr, auth, debug string) Storage {
+	var s Storage
+	var err error
 
-	if err != nil {
-		log.WithError(err).Fatal("redis")
+	if debug == "true" {
+		s = NewMemoryStorage(addr, auth)
+		log.Info("use `in memory` storage")
+	} else {
+		s, err = NewRedisStorage(addr, auth)
+
+		if err != nil {
+			log.WithError(err).Fatal("redis")
+		}
+
+		log.Info("use redis storage")
 	}
 
 	return s

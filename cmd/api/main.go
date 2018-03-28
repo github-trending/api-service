@@ -1,12 +1,12 @@
 package main
 
 import (
-	"github.com/kataras/iris"
 	"github.com/apex/log"
+	"github.com/kataras/iris"
 
+	"github.com/github-trending/api-service"
 	"github.com/github-trending/api-service/config"
 	"github.com/github-trending/api-service/trending"
-	"github.com/github-trending/api-service"
 )
 
 var addr = iris.Addr(":8080")
@@ -42,23 +42,23 @@ func main() {
 
 // handleBadRequest handles 400 request.
 func handleBadRequest(ctx iris.Context) {
-   ctx.Application().Logger().Infof("<-- %s %s %d", ctx.Method(), ctx.Path(), ctx.GetStatusCode())
+	ctx.Application().Logger().Infof("<-- %s %s %d", ctx.Method(), ctx.Path(), ctx.GetStatusCode())
 
-   ctx.JSON(api.ErrorBadRequest)
+	ctx.JSON(api.ErrorBadRequest)
 }
 
 // handleBadRequest handles 404 request.
 func handleNotFound(ctx iris.Context) {
-   ctx.Application().Logger().Infof("<-- %s %s %d", ctx.Method(), ctx.Path(), ctx.GetStatusCode())
+	ctx.Application().Logger().Infof("<-- %s %s %d", ctx.Method(), ctx.Path(), ctx.GetStatusCode())
 
-   ctx.JSON(api.ErrorNotFound)
+	ctx.JSON(api.ErrorNotFound)
 }
 
 // handleBadRequest handles 500 request.
 func handleServiceUnavailable(ctx iris.Context) {
-   ctx.Application().Logger().Infof("<-- %s %s %d", ctx.Method(), ctx.Path(), ctx.GetStatusCode())
+	ctx.Application().Logger().Infof("<-- %s %s %d", ctx.Method(), ctx.Path(), ctx.GetStatusCode())
 
-   ctx.JSON(api.ErrorServiceUnavailable)
+	ctx.JSON(api.ErrorServiceUnavailable)
 }
 
 // handleBadRequest handles `GET /` and `GET /api` request, it reflects [HATEOAS](https://en.wikipedia.org/wiki/HATEOAS).
@@ -79,7 +79,7 @@ func getRepos(ctx iris.Context) {
 	data, err := trending.Repos(since, "")
 
 	if err != nil {
-	  ctx.Application().Logger().Error(err)
+		ctx.Application().Logger().Error(err)
 		ctx.StatusCode(iris.StatusServiceUnavailable)
 		ctx.Next()
 		return

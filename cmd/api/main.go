@@ -1,12 +1,11 @@
 package main
 
 import (
-	"fmt"
-
-	"github.com/github-trending/github-trending"
 	"github.com/kataras/iris"
+	"github.com/apex/log"
 
 	"github.com/github-trending/api-service/config"
+	"github.com/github-trending/api-service/trending"
 	"github.com/github-trending/api-service"
 )
 
@@ -18,6 +17,7 @@ func main() {
 	app := iris.New()
 
 	if debug == "true" {
+		log.SetLevel(log.DebugLevel)
 		app.Logger().SetLevel("debug")
 	}
 
@@ -27,10 +27,12 @@ func main() {
 		ctx.Application().Logger().Debugf("<-- %s %s %d", ctx.Method(), ctx.Path(), ctx.GetStatusCode())
 	})
 
+	// Register custom handler for specific http errors.
 	app.OnErrorCode(iris.StatusBadRequest, handleBadRequest)
 	app.OnErrorCode(iris.StatusNotFound, handleBadRequest)
 	app.OnErrorCode(iris.StatusServiceUnavailable, handleServiceUnavailable)
 
+	// Register routes
 	app.Get("/", getHATEOAS)
 	app.Get(api.RootEndpoint, getHATEOAS)
 	app.Get(api.RepositoryEndpoint, getRepos)
@@ -38,28 +40,33 @@ func main() {
 	app.Run(addr, iris.WithCharset("UTF-8"))
 }
 
+// handleBadRequest handles 400 request.
 func handleBadRequest(ctx iris.Context) {
    ctx.Application().Logger().Infof("<-- %s %s %d", ctx.Method(), ctx.Path(), ctx.GetStatusCode())
 
    ctx.JSON(api.ErrorBadRequest)
 }
 
+// handleBadRequest handles 404 request.
 func handleNotFound(ctx iris.Context) {
    ctx.Application().Logger().Infof("<-- %s %s %d", ctx.Method(), ctx.Path(), ctx.GetStatusCode())
 
    ctx.JSON(api.ErrorNotFound)
 }
 
+// handleBadRequest handles 500 request.
 func handleServiceUnavailable(ctx iris.Context) {
    ctx.Application().Logger().Infof("<-- %s %s %d", ctx.Method(), ctx.Path(), ctx.GetStatusCode())
 
    ctx.JSON(api.ErrorServiceUnavailable)
 }
 
+// handleBadRequest handles `GET /` and `GET /api` request, it reflects [HATEOAS](https://en.wikipedia.org/wiki/HATEOAS).
 func getHATEOAS(ctx iris.Context) {
 	ctx.JSON(api.HATEOAS)
 }
 
+// getRepos returns repositories from https://github.com/trending
 func getRepos(ctx iris.Context) {
 	since := ctx.URLParam("since")
 
@@ -67,34 +74,16 @@ func getRepos(ctx iris.Context) {
 		since = "daily"
 	}
 
-	ctx.Application().Logger().Debugf("request repositories with since param: %s", since)
+	ctx.Application().Logger().Debugf("request repositories with param <since>: %s", since)
 
-	t := trending.New()
-
-	data, err := t.Since(since).Repos()
-
-	fmt.Println(t, data)
+	data, err := trending.Repos(since, "")
 
 	if err != nil {
+	  ctx.Application().Logger().Error(err)
 		ctx.StatusCode(iris.StatusServiceUnavailable)
 		ctx.Next()
 		return
 	}
 
-	var result []api.Repository
-
-	for _, repo := range data {
-		result = append(result, api.Repository{
-			Title: repo.Title,
-			Owner: repo.Owner,
-			Name: repo.Name,
-			Description: repo.Description,
-			Language: repo.Language,
-			Stars: repo.Stars,
-			AdditionalStars: repo.AdditionalStars,
-			URL: repo.URL.String(),
-		})
-	}
-
-	ctx.JSON(result)
+	ctx.JSON(data)
 }

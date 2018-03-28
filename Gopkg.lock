@@ -26,6 +26,12 @@
   version = "v1.0.0"
 
 [[projects]]
+  name = "github.com/apex/log"
+  packages = ["."]
+  revision = "0296d6eb16bb28f8a0c55668affcf4876dc269be"
+  version = "v1.0.0"
+
+[[projects]]
   branch = "master"
   name = "github.com/aymerick/raymond"
   packages = [
@@ -62,6 +68,21 @@
   name = "github.com/github-trending/github-trending"
   packages = ["."]
   revision = "952f2b21cfe6b234688554589efec061bdef3af1"
+
+[[projects]]
+  name = "github.com/go-redis/redis"
+  packages = [
+    ".",
+    "internal",
+    "internal/consistenthash",
+    "internal/hashtag",
+    "internal/pool",
+    "internal/proto",
+    "internal/singleflight",
+    "internal/util"
+  ]
+  revision = "877867d2845fbaf86798befe410b6ceb6f5c29a3"
+  version = "v6.10.2"
 
 [[projects]]
   branch = "master"
@@ -199,6 +220,12 @@
   version = "1.0.0"
 
 [[projects]]
+  name = "github.com/pkg/errors"
+  packages = ["."]
+  revision = "645ef00459ed84a119197bfb8d8205042c6df63d"
+  version = "v0.8.0"
+
+[[projects]]
   branch = "master"
   name = "github.com/ryanuber/columnize"
   packages = ["."]
@@ -264,6 +291,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "e078f6a61cef4325a9e807067ee781960020e7272bfabde50368f43cb1b25e41"
+  inputs-digest = "04631cc8b394f2e6f7d2c2e7478406ddb8c408bfd46ba94a700f4d10bd9feb13"
   solver-name = "gps-cdcl"
   solver-version = 1

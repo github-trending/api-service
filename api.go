@@ -3,7 +3,7 @@ package api
 import (
 	"net/http"
 
-	"github.com/github-trending/online-api/config"
+	"github.com/github-trending/api-service/config"
 )
 
 const (

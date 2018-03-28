@@ -6,8 +6,8 @@ import (
 	"github.com/github-trending/github-trending"
 	"github.com/kataras/iris"
 
-	"github.com/github-trending/online-api/config"
-	"github.com/github-trending/online-api"
+	"github.com/github-trending/api-service/config"
+	"github.com/github-trending/api-service"
 )
 
 var addr = iris.Addr(":8080")

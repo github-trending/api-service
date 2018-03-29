@@ -11,8 +11,15 @@ import (
 
 var addr = iris.Addr(":8080")
 
+var trendingDeamon *trending.Deamon
+
 func main() {
 	debug := config.Get("debug")
+
+	trendingDeamon = trending.StartDeamon()
+
+	// refrech latest data when app is restarted.
+	go trendingDeamon.Refrech()
 
 	app := iris.New()
 
@@ -76,7 +83,9 @@ func getRepos(ctx iris.Context) {
 
 	ctx.Application().Logger().Debugf("request repositories with param <since>: %s", since)
 
-	data, err := trending.Repos(since, "")
+	var data []api.Repository
+
+	err := trendingDeamon.GetJSON("repositories", since, &data)
 
 	if err != nil {
 		ctx.Application().Logger().Error(err)

@@ -30,21 +30,21 @@ func NewRedisStorage(addr, auth string) (*RedisStorage, error) {
 	return &r, nil
 }
 
-// HGet is A thin wrapper around redis.HGet of `github.com/go-redis/redis`.
+// HGet is a thin wrapper around redis.HGet of `github.com/go-redis/redis`.
 func (r *RedisStorage) HGet(key, field string) (string, error) {
 	value, err := r.Client.HGet(key, field).Result()
 
 	return value, err
 }
 
-// HSet is A thin wrapper around redis.HSet of `github.com/go-redis/redis`.
+// HSet is a thin wrapper around redis.HSet of `github.com/go-redis/redis`.
 func (r *RedisStorage) HSet(key, field, value string) (bool, error) {
 	result, err := r.Client.HSet(key, field, value).Result()
 
 	return result, err
 }
 
-// HExists is A thin wrapper around redis.HExists of `github.com/go-redis/redis`.
+// HExists is a thin wrapper around redis.HExists of `github.com/go-redis/redis`.
 func (r *RedisStorage) HExists(key, field string) (bool, error) {
 	result, err := r.Client.HExists(key, field).Result()
 

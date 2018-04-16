@@ -33,6 +33,12 @@
 
 [[projects]]
   branch = "master"
+  name = "github.com/aybabtme/rgbterm"
+  packages = ["."]
+  revision = "cc83f3b3ce5911279513a46d6d3316d67bedaa54"
+
+[[projects]]
+  branch = "master"
   name = "github.com/aymerick/raymond"
   packages = [
     ".",
@@ -245,6 +251,15 @@
 
 [[projects]]
   branch = "master"
+  name = "github.com/sqrthree/debugfmt"
+  packages = [
+    ".",
+    "colors"
+  ]
+  revision = "fe513bc7613bdf176eb7357effc08357fdd26372"
+
+[[projects]]
+  branch = "master"
   name = "golang.org/x/crypto"
   packages = [
     "acme",
@@ -291,6 +306,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "04631cc8b394f2e6f7d2c2e7478406ddb8c408bfd46ba94a700f4d10bd9feb13"
+  inputs-digest = "df0e324cdef029daf2b4ef5414a04206d8cf9d7f7147cd3ca26cbeea1740a5db"
   solver-name = "gps-cdcl"
   solver-version = 1

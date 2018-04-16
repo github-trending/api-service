@@ -1,7 +1,10 @@
 package main
 
 import (
+	"os"
+
 	"github.com/apex/log"
+	"github.com/sqrthree/debugfmt"
 	"github.com/kataras/iris"
 
 	"github.com/github-trending/api-service"
@@ -16,17 +19,18 @@ var trendingDeamon *trending.Deamon
 func main() {
 	debug := config.Get("debug")
 
-	trendingDeamon = trending.StartDeamon()
-
-	// refrech latest data when app is restarted.
-	go trendingDeamon.Refrech()
-
 	app := iris.New()
 
 	if debug == "true" {
 		log.SetLevel(log.DebugLevel)
+		log.SetHandler(debugfmt.New(os.Stdout))
 		app.Logger().SetLevel("debug")
 	}
+
+	trendingDeamon = trending.StartDeamon()
+
+	// refrech latest data when app is restarted.
+	go trendingDeamon.Refrech()
 
 	app.Use(func(ctx iris.Context) {
 		ctx.Application().Logger().Debugf("--> %s %s", ctx.Method(), ctx.Path())

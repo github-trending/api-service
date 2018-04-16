@@ -11,7 +11,7 @@
   branch = "master"
   name = "github.com/Joker/jade"
   packages = ["."]
-  revision = "35b3f5bdbcc920cd31f4870536dbc63be8530541"
+  revision = "b6dd4ee919ca1c60a97e27b16868a5223f32033b"
 
 [[projects]]
   name = "github.com/PuerkitoBio/goquery"
@@ -67,13 +67,13 @@
   branch = "master"
   name = "github.com/flosch/pongo2"
   packages = ["."]
-  revision = "97eac295f74b5fbb7fd3113e35f4ccf3c816e389"
+  revision = "e7cf9ea5ca9c574f3fd5f83f7eed4a6162a67dea"
 
 [[projects]]
   branch = "master"
   name = "github.com/github-trending/github-trending"
   packages = ["."]
-  revision = "952f2b21cfe6b234688554589efec061bdef3af1"
+  revision = "1af37e9a880abc475d29d8e27d74db1218896a59"
 
 [[projects]]
   name = "github.com/go-redis/redis"
@@ -106,7 +106,7 @@
   branch = "master"
   name = "github.com/json-iterator/go"
   packages = ["."]
-  revision = "4930b053b8e9419aa509532d159e153909fc495b"
+  revision = "f89479f5c0d83b365504d632ab57390447bb406a"
 
 [[projects]]
   branch = "master"
@@ -265,7 +265,7 @@
     "acme",
     "acme/autocert"
   ]
-  revision = "88942b9c40a4c9d203b82b3731787b672d6e809b"
+  revision = "d6449816ce06963d9d136eee5a56fca5b0616e7e"
 
 [[projects]]
   branch = "master"
@@ -274,13 +274,13 @@
     "html",
     "html/atom"
   ]
-  revision = "6078986fec03a1dcc236c34816c71b0e05018fda"
+  revision = "500e7a4f953ddaf55d316b4d3adc516aa0379622"
 
 [[projects]]
   branch = "master"
   name = "golang.org/x/sys"
   packages = ["unix"]
-  revision = "13d03a9a82fba647c21a0ef8fba44a795d0f0835"
+  revision = "2281fa97ef7b0c26324634d5a22f04babdac8713"
 
 [[projects]]
   name = "gopkg.in/AlecAivazis/survey.v1"
@@ -288,8 +288,8 @@
     "core",
     "terminal"
   ]
-  revision = "9d3458c219bae9653d267883634bdb5375281fd8"
-  version = "v1.5.1"
+  revision = "e752db451e07e09c7d7dc8cada807a44bdb0fd47"
+  version = "v1.5.3"
 
 [[projects]]
   branch = "v2"
@@ -298,10 +298,10 @@
   revision = "c455fd41c6baf2f78fd7ff0aadc4e4b4d52698b0"
 
 [[projects]]
-  branch = "v2"
   name = "gopkg.in/yaml.v2"
   packages = ["."]
-  revision = "4fc5987536ef307a24ca299aee7ae301cde3d221"
+  revision = "5420a8b6744d3b0345ab293f6fcba19c978f1183"
+  version = "v2.2.1"
 
 [solve-meta]
   analyzer-name = "dep"

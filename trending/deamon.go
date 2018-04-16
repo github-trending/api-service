@@ -207,5 +207,11 @@ func (d *Deamon) cacheRepos(field string, value []api.Repository) error {
 		return err
 	}
 
+	_, err = d.Set("last_modified_time_of_repositories", field, time.Now().Format(time.RFC1123))
+
+	if err != nil {
+		return err
+	}
+
 	return nil
 }

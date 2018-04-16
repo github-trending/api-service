@@ -98,5 +98,13 @@ func getRepos(ctx iris.Context) {
 		return
 	}
 
+	lastModifiedAt, err := trendingDeamon.Get("last_modified_time_of_repositories", since)
+
+	if err == nil {
+		ctx.Header("Last-Modified", lastModifiedAt)
+	} else {
+		ctx.Application().Logger().Error(err)
+	}
+
 	ctx.JSON(data)
 }
